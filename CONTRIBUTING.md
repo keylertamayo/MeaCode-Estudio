@@ -1,176 +1,101 @@
-# Contributing to MeaCode Studio
+# Cómo contribuir a MeaCode Studio
 
-Thank you for your interest in contributing to MeaCode Studio! This document provides guidelines and instructions for contributing.
+Gracias por tu interés en contribuir. Este documento define reglas prácticas para colaborar de forma ordenada.
 
-## Code of Conduct
+## Código de conducta
 
-By participating in this project, you agree to maintain a respectful and professional environment.
+Al participar en el proyecto, aceptas mantener un trato respetuoso y profesional.
 
-## How to Contribute
+## Formas de contribuir
 
-### Reporting Issues
+### Reporte de issues
+- Usa el tracker de GitHub para bugs o propuestas.
+- Incluye pasos para reproducir, comportamiento esperado y real.
+- Revisa issues existentes antes de crear uno nuevo.
 
-- Use the GitHub issue tracker to report bugs or suggest features
-- Provide clear descriptions, steps to reproduce, and relevant system information
-- Check existing issues before creating a new one
+### Pull requests
+1. Haz fork del repositorio y crea rama desde `main`.
+2. Implementa cambios siguiendo estándares del proyecto.
+3. Prueba tus cambios.
+4. Abre PR con descripción clara del alcance e impacto.
 
-### Pull Requests
+## Requisitos de entorno
 
-1. **Fork the repository** and create a branch from `main`
-2. **Make your changes** following our coding standards
-3. **Test your changes** thoroughly
-4. **Submit a pull request** with a clear description of your changes
+- Node.js 18 o superior.
+- pnpm 9 o superior.
+- Rust estable.
+- Git.
 
-## Development Setup
-
-### Prerequisites
-
-- **Node.js**: Version 18.0.0 or higher
-- **pnpm**: Version 9.0.0 or higher
-- **Rust**: Latest stable version
-- **Git**: For version control
-
-### Initial Setup
-
-1. **Clone your fork**:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/MeaCode-Studio.git
-   cd MeaCode-Studio
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pnpm install
-   ```
-
-3. **Run in development mode**:
-   ```bash
-   pnpm tauri dev
-   ```
-
-### Project Structure
-
-```
-MeaCode-Estudio/
-├── kernel/              # Rust backend
-│   ├── kernel-core/    # Core functionality
-│   ├── kernel-lsp/     # LSP server
-│   └── kernel-ai/       # AI engine
-├── src/                 # React frontend
-│   ├── components/     # UI components
-│   ├── editor/         # Editor components
-│   ├── panels/         # Side panels
-│   └── utils/          # Utilities
-└── src-tauri/          # Tauri config
-```
-
-## Coding Standards
-
-### Rust
-
-- Follow the [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
-- Use `rustfmt` for formatting: `cargo fmt`
-- Run `clippy` for linting: `cargo clippy`
-- Write tests for new functionality
-
-### TypeScript/React
-
-- Use TypeScript for all new code
-- Follow React best practices and hooks patterns
-- Use functional components
-- Format code with Prettier (configured in the project)
-- Use meaningful variable and function names
-
-### Commits
-
-- Write clear, descriptive commit messages
-- Use present tense ("Add feature" not "Added feature")
-- Reference issue numbers when applicable: "Fix #123: Description"
-
-Example:
-```
-feat: Add file explorer context menu
-fix: Resolve terminal resize issue
-docs: Update README with installation steps
-```
-
-## Branch Strategy
-
-- `main`: Stable, production-ready code
-- Feature branches: `feature/description`
-- Bug fixes: `fix/description`
-- Documentation: `docs/description`
-
-## Testing
-
-- Write tests for new features
-- Ensure existing tests pass: `pnpm test` (when available)
-- Test on your target platform before submitting
-
-## Build and Development
-
-### Development Commands
+## Configuración inicial
 
 ```bash
-# Start development server
+git clone https://github.com/TU_USUARIO/MeaCode-Studio.git
+cd MeaCode-Studio
+pnpm install
 pnpm tauri dev
-
-# Build frontend only
-pnpm build
-
-# Build Tauri app
-pnpm tauri build
-
-# Format code
-pnpm format  # (if configured)
 ```
 
-## Scope Control
+## Estándares de código
 
-**Large refactors or architectural changes must be discussed before submitting a pull request.**
+### Rust
+- Seguir guías de API de Rust.
+- Formatear con `cargo fmt`.
+- Revisar con `cargo clippy`.
+- Agregar pruebas cuando corresponda.
 
-Please open an issue or discussion thread to propose significant changes. This helps ensure:
-- Alignment with project goals
-- Proper review and planning
-- Avoid duplicate work
+### TypeScript/React
+- Usar TypeScript en nuevo código.
+- Preferir componentes funcionales y hooks.
+- Mantener nombres claros y consistentes.
+- Formatear con Prettier.
 
-Examples of changes requiring discussion:
-- Major refactoring of core components
-- Changes to the project structure
-- New major dependencies
-- Breaking API changes
+### Commits
+- Mensajes claros y en presente.
+- Referenciar issue cuando aplique.
 
-## Intellectual Property
+Ejemplo:
+```text
+feat: agregar menú contextual del explorador
+fix: corregir ajuste de tamaño de terminal
+docs: actualizar guía de instalación
+```
 
-**By contributing, you agree that your contributions may be used, modified and distributed as part of proprietary software owned by MeaCore Enterprise.**
+## Estrategia de ramas
 
-This means:
-- Your contributions become part of the proprietary codebase
-- MeaCore Enterprise retains all rights to the contributed code
-- Contributions are subject to the project's proprietary license
+- `main`: rama estable.
+- `feature/*`: nuevas funcionalidades.
+- `fix/*`: correcciones.
+- `docs/*`: documentación.
 
-## Third-Party Rights
+## Pruebas
 
-**By submitting a pull request, you confirm that you have the right to submit the code and that it does not violate any third-party licenses.**
+- Validar funcionalidad nueva y regresiones básicas.
+- Ejecutar checks disponibles antes de abrir PR.
+- Probar en la plataforma objetivo cuando sea posible.
 
-Please ensure:
-- Code you submit is either original or properly licensed
-- You have permission to contribute any third-party code
-- All dependencies are compatible with the project's license
+## Control de alcance
 
-## Review Process
+Cambios grandes (refactors mayores, rediseño de arquitectura o breaking changes) deben discutirse antes de abrir PR.
 
-1. All pull requests require review before merging
-2. Maintainers will review code quality, tests, and alignment with project goals
-3. Address feedback promptly and professionally
-4. Be patient - reviews may take time depending on complexity
+## Propiedad intelectual
 
-## Questions?
+Al contribuir, aceptas que tu contribución puede ser utilizada, modificada y distribuida como parte de software propietario de MeaCore Enterprise, bajo la licencia del proyecto.
 
-If you have questions about contributing, please:
-- Open a discussion on GitHub
-- Check existing documentation
-- Review closed issues and PRs for similar questions
+## Derechos de terceros
 
-Thank you for contributing to MeaCode Studio!
+Al abrir un PR declaras que tienes derecho a compartir ese código y que no infringe licencias de terceros.
+
+## Proceso de revisión
+
+1. Todo PR requiere revisión antes de merge.
+2. Se valida calidad de código, pruebas y alineación con objetivos.
+3. Atiende feedback de forma clara y oportuna.
+4. El tiempo de revisión depende de la complejidad.
+
+## Soporte
+
+Si tienes dudas:
+- Abre una discusión en GitHub.
+- Revisa documentación existente.
+- Consulta issues/PRs cerrados relacionados.
 

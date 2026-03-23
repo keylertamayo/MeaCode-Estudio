@@ -1,185 +1,104 @@
 # MeaCode Studio
 
-AI-first desktop IDE built with Rust, Tauri and modern web technologies.
+IDE de escritorio orientado a IA, construido con Rust, Tauri y tecnologías web modernas.
 
-## Project Status
+## Estado del proyecto
 
-MeaCode Studio is in early development.
-Some features are incomplete or experimental.
-This release is intended for testing and feedback.
+MeaCode Studio está en desarrollo temprano. Algunas funciones son experimentales y pueden cambiar sin previo aviso.
 
-APIs, features and behavior may change without notice.
+## Características actuales
 
-## Features
+### Editor
+- Editor basado en Monaco con resaltado de sintaxis.
+- Soporte de múltiples pestañas.
+- Explorador de archivos.
+- Paleta de comandos (`Ctrl+Shift+P`).
+- Apertura rápida (`Ctrl+P`).
 
-### Core Editor
-- **Monaco Editor**: Full-featured code editor with syntax highlighting
-- **Multi-tab support**: Work with multiple files simultaneously
-- **File Explorer**: Navigate your project structure
-- **Command Palette**: Quick access to commands (Ctrl+Shift+P)
-- **Quick Open**: Fast file navigation (Ctrl+P)
+### IA
+- Chat integrado con proveedor Nexusify.
+- Acciones de código con IA (explicar, corregir, refactorizar).
+- Base para sugerencias híbridas (LSP + IA).
 
-### AI Integration
-- **AI Chat**: Integrated AI assistant powered by Nexusify API
-- **Contextual Code Actions**: AI-powered code explanations, fixes, and refactoring
-- **Hybrid Autocomplete**: Combines LSP and AI suggestions
+### Herramientas
+- Terminal integrada con xterm.
+- Diagnósticos y ayudas de tipo LSP (base/piloto).
+- Panel Run/Debug en evolución.
 
-### Development Tools
-- **Integrated Terminal**: Full terminal support with xterm.js
-- **LSP Support**: Language Server Protocol integration for diagnostics and completions
-- **Run/Debug Panel**: Execute and debug your code
+## Requisitos
 
-### User Experience
-- **Modern UI**: Built with React, TypeScript, and TailwindCSS
-- **Session Persistence**: Your workspace state is saved automatically
-- **Responsive Layout**: Customizable panel layout
+- Windows 10+, macOS 10.15+ o Linux (Ubuntu 22.04+).
+- Node.js 18+.
+- Rust estable (para desarrollo).
+- Espacio libre recomendado: 500 MB o más.
 
-## System Requirements
+## Instalación
 
-- **Operating System**: Windows 10+, macOS 10.15+, or Linux (Ubuntu 22.04+)
-- **Node.js**: Version 18.0.0 or higher
-- **Rust**: Latest stable version (for development)
-- **Disk Space**: At least 500MB free space
+### Desde releases
+1. Descarga la versión más reciente desde [GitHub Releases](https://github.com/MeaCore-Enterprise/MeaCode-Studio/releases).
+2. Ejecuta el instalador.
+3. Abre MeaCode Studio.
 
-## Installation
-
-### From Releases
-
-1. Download the latest release for your platform from [GitHub Releases](https://github.com/MeaCore-Enterprise/MeaCode-Studio/releases)
-2. Run the installer
-3. Launch MeaCode Studio
-
-### Development Setup
-
-For detailed development instructions, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
-
-Quick start:
-
-1. **Clone the repository**:
+### Para desarrollo
+1. Clona el repositorio:
    ```bash
    git clone https://github.com/MeaCore-Enterprise/MeaCode-Studio.git
    cd MeaCode-Studio
    ```
-
-2. **Install dependencies**:
+2. Instala dependencias:
    ```bash
    pnpm install
    ```
-
-3. **Run in development mode**:
+3. Ejecuta en modo desarrollo:
    ```bash
    pnpm tauri:dev
    ```
-
-4. **Build for production**:
+4. Construye para producción:
    ```bash
    pnpm tauri:build
    ```
 
-## Usage
+Guía detallada: [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
 
-### Opening a Project
+## Estructura del proyecto
 
-1. Click "Open Folder" from the welcome screen
-2. Select your project directory
-3. The file explorer will populate with your project structure
+```text
+MeaCode-Estudio/
+├── kernel/                   # Backend en Rust
+│   ├── kernel-core/          # Núcleo del IDE
+│   ├── kernel-lsp/           # Capa LSP
+│   └── kernel-ai/            # Capa de IA
+├── src/                      # Frontend React + TypeScript
+│   ├── components/
+│   ├── editor/
+│   ├── panels/
+│   ├── layout/
+│   └── utils/
+└── src-tauri/                # Configuración y host Tauri
+```
 
-### Basic Editing
+## Actualizaciones automáticas
 
-- **Open file**: Click on a file in the explorer or use Quick Open (Ctrl+P)
-- **Save**: Ctrl+S (or Cmd+S on macOS)
-- **Close tab**: Click the X on the tab or use Ctrl+W
+El proyecto incluye sistema de actualización automática.  
+Para habilitarlo correctamente en desarrollo:
 
-### AI Features
-
-- **Chat with AI**: Open the AI Chat panel and type your questions
-- **Explain Code**: Select code and use the context menu "Explain this"
-- **Fix Errors**: Right-click on error markers and select "Fix error"
-- **Refactor**: Select code and use "Refactor" from the context menu
-
-### Terminal
-
-- The integrated terminal supports your system's default shell
-- Multiple terminal tabs are supported
-- Terminal automatically adapts to your workspace environment
-
-## Updates
-
-MeaCode Studio includes an automatic update system.
-When a new version is available, the app will prompt you
-to download and install it, then restart automatically.
-
-### Setup for Developers
-
-**⚠️ Important**: Before the updater can work, you must:
-
-1. **Generate signing keys**:
+1. Genera claves de firmado:
    ```bash
    cd src-tauri
    pnpm tauri signer generate
    ```
+2. Reemplaza `pubkey` en `src-tauri/tauri.conf.json` por tu clave pública.
+3. Configura secretos en GitHub:
+   - `TAURI_SIGNING_PRIVATE_KEY`
+   - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`
 
-2. **Update `src-tauri/tauri.conf.json`**:
-   - Replace `"pubkey": "TU_CLAVE_PUBLICA_AQUI"` with your generated public key
+## Contribución y licencia
 
-3. **Configure GitHub Secrets**:
-   - `TAURI_SIGNING_PRIVATE_KEY`: Your private key
-   - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`: The password for your private key
+- Guía de contribución: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Licencia propietaria: [LICENSE](LICENSE)
 
-The updater will **NOT work** until the public key placeholder is replaced.
+## Enlaces
 
-## Project Structure
-
-```
-MeaCode-Estudio/
-├── kernel/                    # Backend in Rust
-│   ├── kernel-core/          # Core IDE functionality
-│   ├── kernel-lsp/           # LSP server
-│   └── kernel-ai/            # AI engine
-├── src/                       # Frontend in React + TypeScript
-│   ├── components/           # Reusable components
-│   ├── editor/               # Editor components
-│   ├── panels/               # Side panels (AI, Terminal, etc.)
-│   ├── layout/               # Layout components
-│   └── utils/                 # Utility functions
-└── src-tauri/                 # Tauri configuration
-```
-
-## Technologies
-
-### Backend
-- **Rust**: Core language for performance and safety
-- **Tokio**: Async runtime
-- **Tower LSP**: Language Server Protocol implementation
-
-### Frontend
-- **React 18**: UI framework
-- **TypeScript**: Type safety
-- **Monaco Editor**: Code editor
-- **TailwindCSS**: Styling
-- **xterm.js**: Terminal emulator
-
-### Desktop
-- **Tauri**: Cross-platform desktop framework
-- **Native IPC**: Fast communication between frontend and backend
-
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
-
-## License
-
-This project is proprietary software. All rights reserved.
-See [LICENSE](LICENSE) for details.
-
-## Links
-
-- [Development Guide](docs/DEVELOPMENT.md) - Detailed setup and development instructions
-- [Roadmap](Roadmap.md) - Project roadmap and future plans
-- [Changelog](CHANGELOG.md) - Version history
-- [Contributing Guide](CONTRIBUTING.md) - How to contribute
-
----
-
-**MeaCode Studio** - Part of the MeaCore Enterprise ecosystem
+- [Guía de desarrollo](docs/DEVELOPMENT.md)
+- [Historial de cambios](CHANGELOG.md)
 

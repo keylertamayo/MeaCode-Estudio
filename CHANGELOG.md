@@ -1,42 +1,41 @@
-# Changelog
+# Historial de cambios
 
-All notable changes to this project will be documented in this file.
+Todos los cambios relevantes del proyecto se documentan aquí.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Formato basado en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) y versionado semántico ([SemVer](https://semver.org/spec/v2.0.0.html)).
 
 ## [Unreleased]
 
-### Planned
-- Stabilization of filesystem access
-- Settings persistence improvements
-- Auto updater UX improvements
+### Planificado
+- Estabilización del acceso a sistema de archivos.
+- Mejora de persistencia de configuración.
+- Mejoras de UX en el actualizador automático.
 
 ## [0.1.0]
 
-### Added
-- Initial editor with Monaco Editor integration
-- Integrated terminal with xterm.js
-- Command Palette (Ctrl+Shift+P)
-- Quick Open file navigation (Ctrl+P)
-- AI chat panel with Nexusify API integration
-- File explorer panel
-- Tab-based editor with multi-file support
-- Context menu with AI-powered code actions
-- Session persistence
-- Run/Debug panel
-- Modern UI with TailwindCSS
-- Responsive layout system
+### Añadido
+- Editor inicial con integración de Monaco Editor.
+- Terminal integrada con xterm.
+- Paleta de comandos (`Ctrl+Shift+P`).
+- Navegación rápida de archivos (`Ctrl+P`).
+- Panel de chat IA con integración Nexusify API.
+- Panel explorador de archivos.
+- Editor por pestañas con soporte multiarchivo.
+- Menú contextual con acciones de código asistidas por IA.
+- Persistencia de sesión.
+- Panel Run/Debug.
+- UI moderna con Tailwind CSS.
+- Layout adaptable.
 
-### Technical
-- Tauri desktop framework integration
-- React + TypeScript frontend
-- Rust backend with kernel architecture
-- LSP server foundation (kernel-lsp)
-- AI engine foundation (kernel-ai)
-- Core kernel implementation (kernel-core)
+### Técnico
+- Integración de framework de escritorio Tauri.
+- Frontend con React + TypeScript.
+- Backend en Rust con arquitectura por kernel.
+- Base de servidor LSP (`kernel-lsp`).
+- Base de motor IA (`kernel-ai`).
+- Implementación base del núcleo (`kernel-core`).
 
 ---
 
-**Note**: Never delete the `[Unreleased]` section. When releasing a new version, move items from `[Unreleased]` to the new version section.
+Nota: no eliminar la sección `[Unreleased]`. Al publicar una versión, mover ítems desde `[Unreleased]` al bloque de versión correspondiente.
 

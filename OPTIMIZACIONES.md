@@ -1,68 +1,41 @@
-# Optimizaciones de Compilación - MeaCode Studio
+# Optimizaciones de compilación
 
-## Optimizaciones Aplicadas
+Este documento resume las optimizaciones vigentes de build y rendimiento de desarrollo.
 
-### 1. Rust/Cargo Optimizations
+## Rust / Cargo
 
-#### Perfil de Desarrollo (`Cargo.toml`)
-- `opt-level = 1` para el código principal (compilación más rápida)
-- `opt-level = 3` para dependencias (mejor rendimiento)
-- `incremental = true` (compilación incremental habilitada)
+### Perfil de desarrollo
+- `opt-level = 1` para el código del workspace.
+- `opt-level = 3` para dependencias.
+- `incremental = true`.
 
-#### Perfil de Release
-- `opt-level = 3` (máxima optimización)
-- `lto = true` (Link-Time Optimization)
-- `codegen-units = 1` (mejor optimización)
-- `panic = 'abort'` (binarios más pequeños)
+### Perfil release
+- `opt-level = 3`.
+- `lto = true`.
+- `codegen-units = 1`.
+- `panic = "abort"`.
 
-#### Linker Optimizations (`.cargo/config.toml`)
-- Uso de `lld` linker (más rápido que el linker por defecto)
-- Optimizaciones de link para Windows (`/OPT:REF`, `/OPT:ICF`)
+## Frontend (Vite)
 
-### 2. Vite/Frontend Optimizations
+- Preoptimización de dependencias pesadas.
+- División de chunks para mejorar caché.
+- Separación de bundles principales (React, Monaco, Terminal).
 
-#### `vite.config.ts`
-- `optimizeDeps.include`: Pre-optimización de dependencias grandes
-- `manualChunks`: Code splitting para mejor caching
-- Chunks separados para React, Monaco y XTerm
-
-### 3. Dependencias Actualizadas
-
-- `@xterm/xterm` v6.0.0 (versión moderna, no deprecada)
-- `@xterm/addon-fit` v0.11.0 (versión estable)
-
-## Mejoras de Tiempo Esperadas
-
-### Desarrollo (Dev Mode)
-- **Primera compilación**: ~30-40% más rápida
-- **Recompilaciones incrementales**: ~50-70% más rápidas
-- **Hot Reload**: Más rápido gracias a code splitting
-
-### Build de Producción
-- **Tiempo de build**: ~20-30% más rápido
-- **Tamaño de binario**: ~10-15% más pequeño
-- **Tiempo de inicio**: Mejorado gracias a optimizaciones
-
-## Comandos Útiles
+## Comandos útiles
 
 ```bash
-# Desarrollo (con optimizaciones)
-pnpm tauri dev
+# Desarrollo
+pnpm tauri:dev
 
 # Build de producción
-pnpm tauri build
+pnpm tauri:build
 
-# Limpiar cache de Rust (si hay problemas)
+# Limpiar artefactos Rust
 cargo clean
-
-# Limpiar cache de Vite
-rm -rf node_modules/.vite
 ```
 
-## Notas Adicionales
+## Observaciones
 
-- La primera compilación siempre será más lenta (descarga de dependencias)
-- Las compilaciones subsecuentes usan cache incremental
-- En Windows, asegúrate de tener `lld` instalado o usa el linker por defecto
-- Para builds de producción, considera usar `--release` flag
+- La primera compilación siempre tarda más por descarga y compilación inicial de dependencias.
+- Las compilaciones siguientes aprovechan caché incremental.
 
