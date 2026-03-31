@@ -143,22 +143,43 @@ jobs:
       - name: Verify binary and report size
         shell: pwsh
         run: |
-          $binaryPath = "src-tauri\target\x86_64-pc-windows-msvc\release\meacode-studio.exe"
-          if (Test-Path $binaryPath) {
-            $size = (Get-Item $binaryPath).Length / 1MB
-            Write-Host "✅ Binary found: meacode-studio.exe ($([math]::Round($size, 2)) MB)"
+          $releaseDirs = @(
+            "target\x86_64-pc-windows-msvc\release",
+            "src-tauri\target\x86_64-pc-windows-msvc\release"
+          )
+
+          $foundBinary = $null
+          foreach ($dir in $releaseDirs) {
+            $candidate = Join-Path $dir "meacode-studio.exe"
+            if (Test-Path $candidate) {
+              $foundBinary = $candidate
+              break
+            }
+          }
+
+          if ($null -ne $foundBinary) {
+            $size = (Get-Item $foundBinary).Length / 1MB
+            Write-Host "✅ Binary found: $foundBinary ($([math]::Round($size, 2)) MB)"
           } else {
-            Write-Error "❌ Binary not found at expected path: $binaryPath"
-            Write-Host "Searching for any .exe in release folder..."
-            Get-ChildItem "src-tauri\target\x86_64-pc-windows-msvc\release" -Filter "*.exe" -ErrorAction SilentlyContinue
+            Write-Error "❌ Binary not found in expected release dirs."
+            foreach ($dir in $releaseDirs) {
+              if (Test-Path $dir) {
+                Write-Host "Checking: $dir"
+                Get-ChildItem $dir -Filter "*.exe" -ErrorAction SilentlyContinue
+              }
+            }
             exit 1
           }
 
-          $bundleDir = "src-tauri\target\x86_64-pc-windows-msvc\release\bundle"
-          if (Test-Path $bundleDir) {
+          $bundleDirs = @(
+            "target\x86_64-pc-windows-msvc\release\bundle",
+            "src-tauri\target\x86_64-pc-windows-msvc\release\bundle"
+          )
+          $foundBundle = $bundleDirs | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if ($foundBundle) {
             Write-Host ""
             Write-Host "Bundle artifacts:"
-            Get-ChildItem $bundleDir -Recurse -File | ForEach-Object {
+            Get-ChildItem $foundBundle -Recurse -File | ForEach-Object {
               $sizeMB = [math]::Round($_.Length / 1MB, 2)
               Write-Host "  $($_.Name)  ($sizeMB MB)"
             }
@@ -171,6 +192,8 @@ jobs:
         with:
           name: build-logs-windows-${{ github.run_number }}
           path: |
+            target\**\*.log
+            target\**\build.log
             src-tauri\target\**\*.log
             src-tauri\target\**\build.log
           retention-days: 7
